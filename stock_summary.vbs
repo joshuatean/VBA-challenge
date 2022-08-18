@@ -53,6 +53,7 @@ For Each ws In Worksheets
         End If
     Next i
 
+LastRowSum = ws.Cells(Rows.Count, 9).End(xlUp).Row
 max = Application.WorksheetFunction.max(ws.Columns("K"))
 ws.Cells(2, 16).Value = max
 ws.Cells(2, 16).NumberFormat = "0.00%"
@@ -62,12 +63,14 @@ ws.Cells(3, 16).NumberFormat = "0.00%"
 max_stock_vol = Application.WorksheetFunction.max(ws.Columns("L"))
 ws.Cells(4, 16).Value = max_stock_vol
 
-ws.Range("O2") = Application.WorksheetFunction.XLookup(ws.Range("P2"), ws.Range("K2:K91"), ws.Range("I2:I91"))
-ws.Range("O3") = Application.WorksheetFunction.XLookup(ws.Range("P3"), ws.Range("K2:K91"), ws.Range("I2:I91"))
-ws.Range("O4") = Application.WorksheetFunction.XLookup(ws.Range("P4"), ws.Range("L2:L91"), ws.Range("I2:I91"))
+ws.Range("O2") = Application.WorksheetFunction.XLookup(ws.Range("P2"), ws.Range("K2:K" & LastRowSum), ws.Range("I2:I" & LastRowSum))
+ws.Range("O3") = Application.WorksheetFunction.XLookup(ws.Range("P3"), ws.Range("K2:K" & LastRowSum), ws.Range("I2:I" & LastRowSum))
+ws.Range("O4") = Application.WorksheetFunction.XLookup(ws.Range("P4"), ws.Range("L2:L" & LastRowSum), ws.Range("I2:I" & LastRowSum))
 
 ws.Columns("I:P").AutoFit
 
 Next ws
 
 End Sub
+
+
